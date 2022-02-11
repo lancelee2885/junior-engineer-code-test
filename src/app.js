@@ -50,4 +50,12 @@ function testIsValid () {
   // Your code here
 }
 
+/** Custom Error if invalid vehicles list is given */
+class VehicleError extends Error {
+  constructor(message){
+    super(message);
+    this.name = 'VehicleError';
+  }
+}
+
 testIsValid();
