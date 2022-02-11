@@ -3,7 +3,7 @@ version: '3'
 networks:
   default:
     name: policyfly
-    external: true
+    external: false
 
 services:
 
