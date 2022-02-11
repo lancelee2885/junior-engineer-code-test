@@ -194,9 +194,9 @@ function testIsValid() {
   };
 
   if (isValid(vehicles, 'notanumber', 'notanumber') === 'invalid type of expectedCost or expectedOldestYear') {
-    console.log('- PASS: incorret types of year of cost should return an error message');
+    console.log('- PASS: incorret types of year or cost should return an error message');
   } else {
-    console.log('- FAIL: incorret types of year of cost should return an error message');
+    console.log('- FAIL: incorret types of year or cost should return an error message');
   };
 
 }
