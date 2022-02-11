@@ -13,15 +13,28 @@
  * @param {number} expectedOldestYear The expected minimum year of all vehicles passed in
  * @return {boolean} A boolean indicating whether input matches expected{Cost,Year}
  */
-function isValid (input, expectedCost, expectedOldestYear) {
+function isValid(input, expectedCost, expectedOldestYear) {
 
+  // validating input
   try {
     isValidVehicles(input);
-  } catch(err) {
+  } catch (err) {
     return 'invalid list of vehicles';
   }
 
+  let totalCost = 0;
+  let minYear = Infinity;
 
+  for (let vehicle of input) {
+    totalCost += vehicle.value;
+    minYear = Math.min(minYear, vehicle.year);
+  }
+
+  if (expectedCost === totalCost && expectedOldestYear === minYear) {
+    return true;
+  }
+
+  return false;
 
 }
 
@@ -48,38 +61,38 @@ function isValidVehicles(vehicles) {
 /**
  * Prompt: Implement a few tests to validate that your function works as expected
  */
-function testIsValid () {
+function testIsValid() {
   // Your code here
 
   console.log('--- Testing isValidVehicles function ---')
 
-  const vehicleA = {type: 'Truck', year: 1997, value: 2000}
-  const vehicleB = {type: 'Trailer', year: 2003, value: 10000}
-  const vehicleC = {type: 'Tractor', year: 2017, value: 15000}
+  const vehicleA = { type: 'Truck', year: 1997, value: 2000 }
+  const vehicleB = { type: 'Trailer', year: 2003, value: 10000 }
+  const vehicleC = { type: 'Tractor', year: 2017, value: 15000 }
   const vehicles = [vehicleA, vehicleB, vehicleC];
 
-  const invalidVehicleA = {type: 'INVALID', year: 1997, value: 2000};
-  const invalidVehicleB = {type: 'Truck', year: 'INVALID', value: 2000};
-  const invalidVehicleC = {type: 'Truck', year: 1997, value: 'INVALID'};
-  const invalidVehicleD = {type: 'Truck', year: 1997, value: 5000, invalidField: 'INVALID'};
+  const invalidVehicleA = { type: 'INVALID', year: 1997, value: 2000 };
+  const invalidVehicleB = { type: 'Truck', year: 'INVALID', value: 2000 };
+  const invalidVehicleC = { type: 'Truck', year: 1997, value: 'INVALID' };
+  const invalidVehicleD = { type: 'Truck', year: 1997, value: 5000, invalidField: 'INVALID' };
 
   try {
-    if (isValidVehicles(vehicles) === true){
+    if (isValidVehicles(vehicles) === true) {
       console.log('- PASS: valid vehicles structures should return True');
     } else {
       console.error('- FAIL: valid vehicles structures should return True');
       console.error('- instead: False');
     }
-  } catch(err) {
-      console.log('- FAIL: valid vehicles structures should return True');
-      console.log(err);
+  } catch (err) {
+    console.log('- FAIL: valid vehicles structures should return True');
+    console.log(err);
   }
 
   try {
     isValidVehicles([invalidVehicleA]);
     console.log('- FAIL: invalid vehicle type should raise VehicleError')
-  } catch(err) {
-    if (err instanceof VehicleError){
+  } catch (err) {
+    if (err instanceof VehicleError) {
       console.log('- PASS: invalid vehicle type should raise VehicleError');
     } else {
       console.log('- FAIL: invalid vehicle type should raise VehicleError');
@@ -90,8 +103,8 @@ function testIsValid () {
   try {
     isValidVehicles([invalidVehicleB]);
     console.log('- FAIL: invalid vehicle year should raise VehicleError')
-  } catch(err) {
-    if (err instanceof VehicleError){
+  } catch (err) {
+    if (err instanceof VehicleError) {
       console.log('- PASS: invalid vehicle year should raise VehicleError');
     } else {
       console.log('- FAIL: invalid vehicle year should raise VehicleError');
@@ -102,64 +115,64 @@ function testIsValid () {
   try {
     isValidVehicles([invalidVehicleC]);
     console.log('- FAIL: invalid vehicle value should raise VehicleError')
-  } catch(err) {
-    if (err instanceof VehicleError){
+  } catch (err) {
+    if (err instanceof VehicleError) {
       console.log('- PASS: invalid vehicle value should raise VehicleError');
     } else {
       console.log('- FAIL: invalid vehicle value should raise VehicleError');
       console.log(err);
     }
-  } 
+  }
 
   try {
     isValidVehicles([invalidVehicleD]);
     console.log('- PASS: invalid vehicle structure should raise VehicleError');
-  } catch(err) {
-    if (err instanceof VehicleError){
+  } catch (err) {
+    if (err instanceof VehicleError) {
       console.log('- PASS: invalid vehicle structure should raise VehicleError');
     } else {
       console.log('- FAIL" invalid vehicle structure should raise VehicleError');
       console.log(err);
     }
-  } 
+  }
 
   try {
     isValidVehicles([]);
     console.log('- FAIL: empty array should raise VehicleError');
-  } catch(err) {
-    if (err instanceof VehicleError){
+  } catch (err) {
+    if (err instanceof VehicleError) {
       console.log('- PASS: empty array should raise VehicleError');
     } else {
       console.log('- FAIL: empty array should raise VehicleError');
       console.log(err);
     }
-  } 
+  }
 
   try {
     isValidVehicles();
     console.log('- FAIL: undefined input should raise VehicleError');
-  } catch(err) {
-    if (err instanceof VehicleError){
+  } catch (err) {
+    if (err instanceof VehicleError) {
       console.log('- PASS: undefined input should raise VehicleError');
     } else {
       console.log('- FAIL: undefined input should raise VehicleError');
       console.log(err);
     }
-  } 
+  }
 
   console.log('--- Testing isValid function ---');
 
-  if (isValid([invalidVehicleA, invalidVehicleB, invalidVehicleC], 1, 1) === 'invalid list of vehicles'){
+  if (isValid([invalidVehicleA, vehicleB, vehicleC], 1, 1) === 'invalid list of vehicles') {
     console.log('- PASS: invalid input should return an error meesage');
   }
 
-  if (isValid[vehicles, 27000, 1997] === true) {
+  if (isValid(vehicles, 27000, 1997) === true) {
     console.log('- PASS: valid input should return True if given data is correct');
   } else {
     console.log('- FAIL: valid input should return True if given data is correct');
   }
 
-  if (isValid[vehicles, 10, 100000000] === false) {
+  if (isValid(vehicles, 10, 100000000) === false) {
     console.log('- PASS: valid input should return False if given data is incorrect');
   } else {
     console.log('- FAIL: valid input should return False if given data is incorrect');
@@ -169,7 +182,7 @@ function testIsValid () {
 
 /** Custom Error if invalid vehicles list is given */
 class VehicleError extends Error {
-  constructor(message){
+  constructor(message) {
     super(message);
     this.name = 'VehicleError';
   }
