@@ -15,15 +15,19 @@
  */
 function isValid(input, expectedCost, expectedOldestYear) {
 
-  if (expectedCost === undefined || expectedOldestYear === undefined) return 'either expectedCost or expectedOldestYear missing';
-  if (typeof expectedCost !== 'number' || typeof expectedOldestYear !== 'number') return 'invalid type of expectedCost or expectedOldestYear';
+  if (expectedCost === undefined || expectedOldestYear === undefined) {
+    return 'either expectedCost or expectedOldestYear missing';
+  };
+  if (typeof expectedCost !== 'number' || typeof expectedOldestYear !== 'number') {
+    return 'invalid type of expectedCost or expectedOldestYear';
+  };
 
   // validating input
   try {
     isValidVehicles(input);
   } catch (err) {
     return 'invalid list of vehicles';
-  }
+  };
 
   let totalCost = 0;
   let minYear = Infinity;
@@ -31,15 +35,15 @@ function isValid(input, expectedCost, expectedOldestYear) {
   for (let vehicle of input) {
     totalCost += vehicle.value;
     minYear = Math.min(minYear, vehicle.year);
-  }
+  };
 
   if (expectedCost === totalCost && expectedOldestYear === minYear) {
     return true;
-  }
+  };
 
   return false;
 
-}
+};
 
 /** Helper function checking if given vehicles list is valid. */
 function isValidVehicles(vehicles) {
@@ -52,14 +56,14 @@ function isValidVehicles(vehicles) {
       throw new VehicleError('model year should be a number');
     } else if (typeof v.value !== 'number') {
       throw new VehicleError('value should be a number');
-    }
-  })
+    };
+  });
   if (vehicles?.length) {
     return true;
   } else {
     throw new VehicleError('No input or an empty array was given.');
-  }
-}
+  };
+};
 
 /**
  * Prompt: Implement a few tests to validate that your function works as expected
@@ -70,9 +74,9 @@ function testIsValid() {
   // TEST on isValidVehicles ----------------------------------------------------
   console.log('--- Testing isValidVehicles function ---')
 
-  const vehicleA = { type: 'Truck', year: 1997, value: 2000 }
-  const vehicleB = { type: 'Trailer', year: 2003, value: 10000 }
-  const vehicleC = { type: 'Tractor', year: 2017, value: 15000 }
+  const vehicleA = { type: 'Truck', year: 1997, value: 2000 };
+  const vehicleB = { type: 'Trailer', year: 2003, value: 10000 };
+  const vehicleC = { type: 'Tractor', year: 2017, value: 15000 };
   const vehicles = [vehicleA, vehicleB, vehicleC];
 
   const invalidVehicleA = { type: 'INVALID', year: 1997, value: 2000 };
@@ -86,11 +90,11 @@ function testIsValid() {
     } else {
       console.error('- FAIL: valid vehicles structures should return True');
       console.error('- instead: False');
-    }
+    };
   } catch (err) {
     console.log('- FAIL: valid vehicles structures should return True');
     console.log(err);
-  }
+  };
 
   try {
     isValidVehicles([invalidVehicleA]);
@@ -101,8 +105,8 @@ function testIsValid() {
     } else {
       console.log('- FAIL: invalid vehicle type should raise VehicleError');
       console.log(err);
-    }
-  }
+    };
+  };
 
   try {
     isValidVehicles([invalidVehicleB]);
@@ -113,8 +117,8 @@ function testIsValid() {
     } else {
       console.log('- FAIL: invalid vehicle year should raise VehicleError');
       console.log(err);
-    }
-  }
+    };
+  };
 
   try {
     isValidVehicles([invalidVehicleC]);
@@ -125,8 +129,8 @@ function testIsValid() {
     } else {
       console.log('- FAIL: invalid vehicle value should raise VehicleError');
       console.log(err);
-    }
-  }
+    };
+  };
 
   try {
     isValidVehicles([invalidVehicleD]);
@@ -137,8 +141,8 @@ function testIsValid() {
     } else {
       console.log('- FAIL" invalid vehicle structure should raise VehicleError');
       console.log(err);
-    }
-  }
+    };
+  };
 
   try {
     isValidVehicles([]);
@@ -149,8 +153,8 @@ function testIsValid() {
     } else {
       console.log('- FAIL: empty array should raise VehicleError');
       console.log(err);
-    }
-  }
+    };
+  };
 
   try {
     isValidVehicles();
@@ -161,8 +165,8 @@ function testIsValid() {
     } else {
       console.log('- FAIL: undefined input should raise VehicleError');
       console.log(err);
-    }
-  }
+    };
+  };
 
   // TEST on isValid ----------------------------------------------------
   console.log('--- Testing isValid function ---');
@@ -175,25 +179,25 @@ function testIsValid() {
     console.log('- PASS: valid input should return True if given data is correct');
   } else {
     console.log('- FAIL: valid input should return True if given data is correct');
-  }
+  };
 
   if (isValid(vehicles, 10, 100000000) === false) {
     console.log('- PASS: valid input should return False if given data is incorrect');
   } else {
     console.log('- FAIL: valid input should return False if given data is incorrect');
-  }
+  };
 
   if (isValid(vehicles) === 'either expectedCost or expectedOldestYear missing') {
     console.log('- PASS: missing arg(s) should return an error message');
   } else {
     console.log('- FAIL: missing arg(s) should return an error message');
-  }
+  };
 
   if (isValid(vehicles, 'notanumber', 'notanumber') === 'invalid type of expectedCost or expectedOldestYear') {
     console.log('- PASS: incorret types of year of cost should return an error message');
   } else {
     console.log('- FAIL: incorret types of year of cost should return an error message');
-  }
+  };
 
 }
 
@@ -202,7 +206,7 @@ class VehicleError extends Error {
   constructor(message) {
     super(message);
     this.name = 'VehicleError';
-  }
+  };
 }
 
 testIsValid();
