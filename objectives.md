@@ -1,6 +1,8 @@
 # Bugs:
 
 - When creating a post, the default timestamp is a day behind. 
+    - cause: default post time is set to auto_new method, which return a day before server time.
+    - fix: default the post time to `datetime.datetime.now` from server time.
 - (Not necessary a bug) When creating a post, default timestamp is set to EST time. Might be a good idea to make it local time.
 
 
