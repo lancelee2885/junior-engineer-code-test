@@ -67,6 +67,7 @@ function isValidVehicles(vehicles) {
 function testIsValid() {
   // Your code here
 
+  // TEST on isValidVehicles ----------------------------------------------------
   console.log('--- Testing isValidVehicles function ---')
 
   const vehicleA = { type: 'Truck', year: 1997, value: 2000 }
@@ -163,6 +164,7 @@ function testIsValid() {
     }
   }
 
+  // TEST on isValid ----------------------------------------------------
   console.log('--- Testing isValid function ---');
 
   if (isValid([invalidVehicleA, vehicleB, vehicleC], 1, 1) === 'invalid list of vehicles') {
