@@ -15,6 +15,9 @@
  */
 function isValid(input, expectedCost, expectedOldestYear) {
 
+  if (expectedCost === undefined || expectedOldestYear === undefined) return 'either expectedCost or expectedOldestYear missing';
+  if (typeof expectedCost !== 'number' || typeof expectedOldestYear !== 'number') return 'invalid type of expectedCost or expectedOldestYear';
+
   // validating input
   try {
     isValidVehicles(input);
@@ -176,6 +179,18 @@ function testIsValid() {
     console.log('- PASS: valid input should return False if given data is incorrect');
   } else {
     console.log('- FAIL: valid input should return False if given data is incorrect');
+  }
+
+  if (isValid(vehicles) === 'either expectedCost or expectedOldestYear missing') {
+    console.log('- PASS: missing arg(s) should return an error message');
+  } else {
+    console.log('- FAIL: missing arg(s) should return an error message');
+  }
+
+  if (isValid(vehicles, 'notanumber', 'notanumber') === 'invalid type of expectedCost or expectedOldestYear') {
+    console.log('- PASS: incorret types of year of cost should return an error message');
+  } else {
+    console.log('- FAIL: incorret types of year of cost should return an error message');
   }
 
 }
