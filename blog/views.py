@@ -12,7 +12,11 @@ def detail(request, post_id):
     try:
         post = Post.objects.get(pk=post_id)
         post.views += 1
+
+        # Making sure that only 'views' field is updating, 
+        # otherwise post edit date will be changing everytime post is viewd.
         post.save(update_fields=['views'])
+        
     except Post.DoesNotExist:
         raise Http404("Post with given ID does not exist")
     
