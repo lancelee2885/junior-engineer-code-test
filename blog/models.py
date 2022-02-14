@@ -2,7 +2,7 @@ import datetime
 from django.db import models
 
 def auto_now():
-    return datetime.datetime.now().astimezone()
+    return datetime.datetime.now()
 
 class Post(models.Model):
     title = models.CharField(max_length=128)
